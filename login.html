@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login</title>
+
+    <link rel="stylesheet" href="style.css">        <!-- External CSS -->
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <h1>Login</h1>
+
+        <label for="username">Username:</label>
+        <input 
+            type="text" 
+            id="username"
+            name="username"
+            placeholder="Enter username"
+            autocomplete="username">
+
+        <label for="password">Password:</label>
+
+        <div class="password-container">
+
+            <input 
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                autocomplete="current-password">
+    
+            <button type="button" class="eye-button" onclick="togglePassword()">👁</button>
+
+        </div>
+
+        <button class="login-button">Login</button>
+
+        <p>Note: For test account only!</p>
+        <p>Enter <strong>Jeera</strong> as the username</p>
+        <p>Enter <strong>12345</strong> as the password</p>
+
+    </div>
+
+
+    <script src="function.js"></script>
+
+</body>
+</html>

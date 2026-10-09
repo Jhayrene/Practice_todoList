@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>Add New Task</title>
+
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+
+    <!-- Add New Task Modal -->
+    <div class="modal-overlay">
+
+
+        <div class="task-modal">
+
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h2>New Task</h2>
+
+
+                <button type="button" class="close-button">
+                    ×
+                </button>
+            </div>
+
+
+
+
+            <!-- Task Description -->
+            <div class="form-group">
+
+
+                <input
+                    type="text"
+                    id="task-description"
+                    name="description"
+                    placeholder="Task description..."
+                >
+
+
+            </div>
+
+
+
+
+            <!-- Due Date and Priority -->
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+
+                    <label for="task-due-date">Due Date</label>
+
+
+                    <input
+                        type="date"
+                        id="task-due-date"
+                        name="dueDate"
+                    >
+
+
+                </div>
+
+
+
+
+                <div class="form-group">
+
+
+                    <label for="task-priority">Priority</label>
+
+
+                    <select id="task-priority" name="priority">
+
+
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="low">Low</option>
+
+
+                    </select>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+            <!-- Category and Recurring -->
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+
+                    <label for="task-category">Category</label>
+
+
+                    <select id="task-category" name="category">
+
+
+                        <option value="other">Other</option>
+                        <option value="work">Work</option>
+                        <option value="study">Study</option>
+                        <option value="personal">Personal</option>
+                        <option value="shopping">Shopping</option>
+
+
+                    </select>
+
+
+                </div>
+
+
+
+
+                <div class="form-group">
+
+
+                    <label for="task-recurring">Recurring</label>
+
+
+                    <select id="task-recurring" name="recurring">
+
+
+                        <option value="none">None</option>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+
+
+                    </select>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+            <!-- Reminder -->
+            <div class="reminder">
+
+
+                <input
+                    type="checkbox"
+                    id="task-reminder"
+                    name="reminder"
+                >
+
+
+                <label for="task-reminder">
+                    Set reminder for this task
+                </label>
+
+
+            </div>
+
+
+
+
+            <!-- Modal Buttons -->
+            <div class="modal-buttons">
+
+
+                <button type="button" class="cancel-button">
+                    Cancel
+                </button>
+
+
+                <button type="button" class="add-button">
+                    Add Task
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <script src="function.js"></script>
+
+
+</body>
+</html>
