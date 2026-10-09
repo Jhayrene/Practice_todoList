@@ -361,12 +361,12 @@ function displayTasks(taskList = null) {
                 ${task.priority.toUpperCase()}
             </span>
 
-            <div class="task-actions">
+          <div class="task-actions">
 
-                <button class="edit-button">✎</button>
-                <button class="delete-button">🗑</button>
-
-            </div>
+            <button class="edit-button" aria-label="Edit task">✎</button>
+            <button class="delete-button" aria-label="Delete task">🗑</button>
+        
+        </div>
 
         `;
 
