@@ -19,11 +19,12 @@ function togglePassword() {
 // ===============PAGE SETUP================//
 
 document.addEventListener("DOMContentLoaded", function () {
-
     setupLogin();
     setupAddTask();
     setupMainPage();
+    setupHeaderButtons();
     setupLogout();
+});
 
 function showToast(message, type = "success") {
     const toast = document.getElementById("toast");
@@ -40,7 +41,6 @@ function showToast(message, type = "success") {
         toast.classList.remove("show");
     }, 2500);
 }
-});
 
 
 // ===============LOGIN================//
@@ -243,14 +243,12 @@ function setupMainPage() {
 
     }
 
-
     createDefaultTasks();
     displayTasks();
     setupMainButtons();
     setupFilters();
     setupCategories();
     setupSearch();
-    setupHeaderButtons();
     setupOverdue();
 
 }
@@ -1054,21 +1052,21 @@ function updateDate() {
 // ===============PROFILE BUTTON================//
 
 function setupHeaderButtons() {
-
     const notification = document.querySelector(".notification");
     const profile = document.querySelector(".profile");
 
-
     if (notification) {
-
         notification.addEventListener("click", function () {
-
-            showToast("You have no new notifications.",);
-
-        })
-
+            alert("You have no new notifications.");
+        });
     }
 
+    if (profile) {
+        profile.addEventListener("click", function () {
+            window.location.href = "userProfile.html";
+        });
+    }
+}
 
     if (profile) {
 
@@ -1081,7 +1079,7 @@ function setupHeaderButtons() {
 
     }
 
-}
+
 
 
 // ===============LOG OUT================//
