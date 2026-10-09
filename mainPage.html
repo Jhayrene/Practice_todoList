@@ -119,12 +119,11 @@
                     <input type="search" placeholder="🔍  Search tasks...">
 
 
-                    <!-- Notification -->
-                    <button class="notification">🔔</button>
-
+                   <!-- Notification -->
+                    <button class="notification" aria-label="View notifications">🔔</button>
 
                     <!-- User Profile -->
-                    <button class="profile">JB</button>   
+                    <button class="profile" aria-label="Open user profile">JB</button>
 
 
                 </div>
@@ -331,15 +330,12 @@
                         <span class="priority-badge high">HIGH</span>
 
 
-                        <div class="task-actions">
+                      <div class="task-actions">
 
-
-                            <button>✎</button> <!-- user can modify the details to a task that was already created-->
-                            <button>🗑</button>  <!-- user can delete the task -->
-
-
-                        </div>
-
+                        <button aria-label="Edit task">✎</button> <!-- user can modify the details to a task that was already created-->
+                        <button aria-label="Delete task">🗑</button>  <!-- user can delete the task -->
+                    
+                    </div>
 
                     </article>
 
@@ -367,14 +363,12 @@
                         <span class="priority-badge high">HIGH</span>
 
 
-                        <div class="task-actions">
+                      <div class="task-actions">
 
-
-                            <button>✎</button>
-                            <button>🗑</button>
-
-
-                        </div>
+                        <button aria-label="Edit task">✎</button>
+                        <button aria-label="Delete task">🗑</button>
+                    
+                    </div>
 
 
                     </article>
@@ -389,6 +383,24 @@
 
 
     </div>
+
+    <!-- Custom Toast Notification -->
+<div id="toast" class="toast">
+  <p id="toast-message"></p>
+</div>
+
+<!-- Custom Confirmation Modal -->
+<div id="confirmation-modal" class="modal">
+  <div class="modal-content">
+    <h3 id="confirm-title"></h3>
+    <p id="confirm-message"></p>
+    <div class="modal-buttons">
+        
+      <button id="confirm-yes" class="confirm-button">Confirm</button>
+      <button id="confirm-no" class="cancel-button">Cancel</button>
+    </div>
+  </div>
+</div>
 
 
     <script src="function.js"></script>
