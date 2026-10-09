@@ -679,46 +679,41 @@ function deleteTask(id) {
 // ===============EDIT TASK================//
 
 function editTask(id) {
-
     const tasks = getTasks();
-
-    const task =
-        tasks.find(function (item) {
-
-            return item.id === id;
-
-        });
-
-
-    if (!task) {
-        return;
-    }
-
-
-    const newDescription =
-        prompt(
-            "Enter new task description:",
-            task.description
-        );
-
-
-    if (
-        newDescription === null ||
-        newDescription.trim() === ""
-    ) {
-
-        return;
-
-    }
-
-
-    task.description =
-        newDescription.trim();
-
-
-    saveTasks(tasks);
-    displayTasks();
-
+    const task = tasks.find(item => item.id === id);
+    
+    if (!task) return;
+    
+    // Populate modal with current task data
+    document.getElementById('edit-description').value = task.description;
+    document.getElementById('edit-due-date').value = task.dueDate || '';
+    document.getElementById('edit-priority').value = task.priority;
+    document.getElementById('edit-category').value = task.category;
+    document.getElementById('edit-recurring').value = task.recurring;
+    document.getElementById('edit-reminder').checked = task.reminder;
+    
+    // Show modal
+    document.getElementById('edit-modal').style.display = 'block';
+    
+    // Handle save
+    document.getElementById('edit-form').onsubmit = function(e) {
+        e.preventDefault();
+        task.description = document.getElementById('edit-description').value.trim();
+        task.dueDate = document.getElementById('edit-due-date').value;
+        task.priority = document.getElementById('edit-priority').value;
+        task.category = document.getElementById('edit-category').value;
+        task.recurring = document.getElementById('edit-recurring').value;
+        task.reminder = document.getElementById('edit-reminder').checked;
+        
+        saveTasks(tasks);
+        displayTasks();
+        document.getElementById('edit-modal').style.display = 'none';
+    };
+    
+    // Handle cancel
+    document.querySelector('#edit-modal .cancel-button').onclick = function() {
+        document.getElementById('edit-modal').style.display = 'none';
+    };
 }
 
 
