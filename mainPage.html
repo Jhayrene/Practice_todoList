@@ -102,24 +102,22 @@
         <main>
             <!-- ===== HEADER ===== -->
             <header class="header">
+                <div class="header-left">
 
+                        
+                    <div class="welcome">
+                        <h1 id="welcome-message">Welcome back! 👋</h1>
+                        <p id="current-date"></p>
+                    </div>
 
-                <div class="welcome">
-
-
-                    <h1 id="welcome-message">Welcome back! 👋</h1>
-                    <p id="current-date"></p>
-
-
+                    
                 </div>
-
 
                 <div class="header-actions">
                     <input type="search" placeholder="🔍  Search tasks...">
                     <button class="notification" aria-label="View notifications">🔔</button>
                     <button class="profile" aria-label="Open user profile">JB</button>
                 </div>
-
 
 
 
@@ -297,47 +295,73 @@
 
 
 
-
-
                 </section>
+
+                
 
 
             
+                
 
+                   <!-- Custom Toast Notification -->
+                    <div id="toast" class="toast">
+                        <p id="toast-message"></p>
+                    </div>
 
-        
+                    <!-- Custom Confirmation Modal -->
 
+                    <div id="editTaskModal" class="edit-modal">
+                        <div class="edit-modal-content">
+                            <div class="modal-header">
+                                <h2>Edit Task</h2>
+                                <button type="button" class="close-edit-modal" aria-label="Close edit task form">×</button>
+                            </div>
 
-                </div>
+                            <div class="form-group">
+                                <label for="edit-task-description">Task Description</label>
+                                <input type="text" id="edit-task-description" name="editTaskDescription">
+                            </div>
 
-    <!-- Custom Toast Notification -->
-<div id="toast" class="toast">
-  <p id="toast-message"></p>
-</div>
-
-<!-- Custom Confirmation Modal -->
-<div id="confirmation-modal" class="modal">
-  <div class="modal-content">
-    <h3 id="confirm-title"></h3>
-    <p id="confirm-message"></p>
-    <div class="modal-buttons">
-
-      <button id="confirm-yes" class="confirm-button">Confirm</button>
-      <button id="confirm-no" class="cancel-button">Cancel</button>
-    </div>
-  </div>
-</div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="edit-task-due-date">Due Date</label>
+                                    <input type="date" id="edit-task-due-date" name="editTaskDueDate">
+                                </div>
 
                                 <div class="form-group">
-                                    <label for="edit-task-recurring">Recurring</label>
-                                    <select id="edit-task-recurring" name="editTaskRecurring">
-                                        <option value="none">None</option>
-                                        <option value="daily">Daily</option>
-                                        <option value="weekly">Weekly</option>
-                                        <option value="monthly">Monthly</option>
+                                    <label for="edit-task-priority">Priority</label>
+                                    <select id="edit-task-priority" name="editTaskPriority">
+                                        <option value="low">Low</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="high">High</option>
                                     </select>
                                 </div>
+
                             </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="edit-task-category">Category</label>
+                                    <select id="edit-task-category" name="editTaskCategory">
+                                        <option value="other">Other</option>
+                                        <option value="work">Work</option>
+                                        <option value="study">Study</option>
+                                        <option value="personal">Personal</option>
+                                        <option value="shopping">Shopping</option>
+                                    </select>
+                                </div>  
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit-task-recurring">Recurring</label>
+                                <select id="edit-task-recurring" name="editTaskRecurring">
+                                    <option value="none">None</option>
+                                    <option value="daily">Daily</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly">Monthly</option>
+                                </select>
+                            </div>
+                            
 
                             <div class="reminder">
                                 <input type="checkbox" id="edit-task-reminder" name="editTaskReminder">
@@ -348,14 +372,28 @@
                                 <button type="button" class="cancel-edit-button">Cancel</button>
                                 <button type="button" class="save-edit-button">Save Changes</button>
 
-
                             </div>
+                
                         </div>
+                    
                     </div>
-            </section>  
+                    
+                
+
+
+                 
+
+
+            </section>     
         </main>
 
     </div>
+
+
+
+
+    <script src="function.js"></script>
+
 
 </body>
 </html>
