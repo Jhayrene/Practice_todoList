@@ -773,7 +773,17 @@ main {
 
 /* ===============MODAL BUTTONS================ */
 
-.modal-buttons {
+.edit-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.edit-modal.show {
     display: flex;
     gap: 8px;
 }

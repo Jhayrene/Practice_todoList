@@ -7,10 +7,57 @@
 
     <title>Login</title>
 
-    <link rel="stylesheet" href="style.css">        <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">                <!-- External CSS -->
+        <style>
+        .demo-mode-banner {
+            background: #fef3c7;
+            color: #92400e;
+            text-align: center;
+            padding: 12px 18px;
+            font-size: 13px;
+            font-weight: bold;
+            border-bottom: 1px solid #fbbf24;
+        }
+
+        .toast-container {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+        }
+
+        .toast {
+            min-width: 220px;
+            max-width: 320px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+            animation: slideIn 0.25s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(40px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .toast.success { background: #16a34a; }
+        .toast.error { background: #dc2626; }
+        .toast.warning { background: #f59e0b; }
+        .toast.info { background: #2563eb; }
+    </style>
 </head>
 
 <body>
+
+     <div class="demo-mode-banner">
+        🔐 DEMO MODE — Using test credentials for prototype development
+    </div>
+
 
     <div class="login-container">
 
@@ -40,10 +87,13 @@
         </div>
 
         <button class="login-button">Login</button>
+        <p><strong>Test Credentials (Demo Only):</strong></p>
+        <p>Username: <strong>Jeera</strong></p>
+        <p>Password: <strong>12345</strong></p>
 
-        <p>Note: For test account only!</p>
-        <p>Enter <strong>Jeera</strong> as the username</p>
-        <p>Enter <strong>12345</strong> as the password</p>
+    </div>
+
+    <div class="toast-container" id="toast-container"></div>
 
     </div>
 
