@@ -23,6 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
     setupLogin();
     setupAddTask();
     setupMainPage();
+
+    setupHeaderButtons();
+    setupEditModalEvents();
     setupLogout();
 
 });
@@ -31,58 +34,42 @@ document.addEventListener("DOMContentLoaded", function () {
 // ===============LOGIN================//
 
 function setupLogin() {
-
-    const loginButton =
-        document.querySelector(".login-button");
+    const loginButton = document.querySelector(".login-button");
 
     if (!loginButton) {
         return;
     }
 
-
     function login() {
-
         const username = document.getElementById("username").value.trim();
         const password = document.getElementById("password").value;
         const correctUsername = "Jeera";
         const correctPassword = "12345";
 
         if (username === "" || password === "") {
-
             alert("Please enter your username and password.");
+
+            showToast("Please enter your username and password.", "error");
 
             return;
         }
 
-        if (
-            username === correctUsername &&
-            password === correctPassword
-        ) {
-
+        if (username === correctUsername && password === correctPassword) {
             localStorage.setItem("loggedIn", "true");
             localStorage.setItem("username", username);
-
             window.location.href = "mainPage.html";
-
         } else {
-
-            alert("Incorrect username or password.");
-
+            showToast("Incorrect username or password.", "error");
         }
-
     }
-
 
     loginButton.addEventListener("click", login);
 
     document.addEventListener("keydown", function (event) {
-
         if (event.key === "Enter") {
             login();
         }
-
     });
-
 }
 
 
@@ -114,7 +101,6 @@ function saveTasks(tasks) {
 // ===============ADD NEW TASK================//
 
 function setupAddTask() {
-
     const addButton = document.querySelector(".modal-buttons .add-button");
 
     if (!addButton) {
@@ -124,20 +110,14 @@ function setupAddTask() {
     const quickTask = localStorage.getItem("newTask");
 
     if (quickTask) {
-
         const description = document.getElementById("task-description");
-
         if (description) {
             description.value = quickTask;
         }
-
         localStorage.removeItem("newTask");
-
     }
 
-
     addButton.addEventListener("click", function () {
-
         const description = document.getElementById("task-description").value.trim();
         const dueDate = document.getElementById("task-due-date").value;
         const priority = document.getElementById("task-priority").value;
@@ -146,17 +126,13 @@ function setupAddTask() {
         const reminder = document.getElementById("task-reminder").checked;
 
         if (description === "") {
-
-            alert("Please enter a task.");
-
+            showToast("Please enter a task.", "error");
             return;
         }
-
 
         const tasks = getTasks();
 
         const newTask = {
-
             id: Date.now(),
             description: description,
             dueDate: dueDate,
@@ -165,50 +141,32 @@ function setupAddTask() {
             recurring: recurring,
             reminder: reminder,
             completed: false
-
         };
-
 
         tasks.push(newTask);
         saveTasks(tasks);
-        alert("Task added successfully!");
+        showToast("Task added successfully!");
         window.location.href = "mainPage.html";
-
     });
 
-
     const cancelButton = document.querySelector(".cancel-button");
-
-
     if (cancelButton) {
-
         cancelButton.addEventListener("click", function () {
             window.location.href = "mainPage.html";
-
         });
-
     }
-
 
     const closeButton = document.querySelector(".close-button");
-
-
     if (closeButton) {
-
         closeButton.addEventListener("click", function () {
             window.location.href = "mainPage.html";
-
         });
-
     }
-
 }
-
 
 // ===============MAIN PAGE================//
 
 function setupMainPage() {
-
     const app = document.querySelector(".app");
 
     if (!app) {
@@ -217,16 +175,11 @@ function setupMainPage() {
 
     updateDate();
 
-
     const username = localStorage.getItem("username");
     const welcomeMessage = document.getElementById("welcome-message");
 
-
     if (welcomeMessage && username) {
-
-        welcomeMessage.textContent =
-            "Welcome back, " + username + "! 👋";
-
+        welcomeMessage.textContent = "Welcome back, " + username + "! 👋";
     }
 
 
@@ -238,7 +191,7 @@ function setupMainPage() {
     setupSearch();
     setupHeaderButtons();
     setupOverdue();
-
+    setupMobileMenu();
 }
 
 
@@ -363,8 +316,8 @@ function displayTasks(taskList = null) {
 
             <div class="task-actions">
 
-                <button class="edit-button">✎</button>
-                <button class="delete-button">🗑</button>
+                <button class="edit-button" aria-label="Edit task">✎</button>
+                <button class="delete-button" aria-label="Delete task">🗑</button>
 
             </div>
 
@@ -595,35 +548,21 @@ function setupOverdue() {
 
 function setupMainButtons() {
 
-    const addButton =
-        document.querySelector(".add-task .add-button");
-
+    const addButton = document.querySelector(".add-task .add-button");
 
     if (!addButton) {
         return;
     }
 
     addButton.addEventListener("click", function () {
-
-        const input =
-            document.querySelector(
-                ".task-input input"
-            );
+        const input = document.querySelector(".task-input input");
 
         if (input && input.value.trim() !== "") {
-
-            localStorage.setItem(
-                "newTask",
-                input.value.trim()
-            );
-
+            localStorage.setItem("newTask", input.value.trim());
         }
 
-        window.location.href =
-            "addNewtask.html";
-
+        window.location.href = "addnewTask.html";
     });
-
 }
 
 
@@ -672,55 +611,75 @@ function deleteTask(id) {
 
     saveTasks(tasks);
     displayTasks();
+    showToast("Task deleted successfully.");
 
 }
 
 
 // ===============EDIT TASK================//
 
-function editTask(id) {
+function openEditTaskModal(taskId) {
+    const tasks = getTasks();
+    const task = tasks.find(function (item) {
+        return item.id === taskId;
+    });
+
+    if (!task) return;
+
+    document.getElementById("edit-task-description").value = task.description || "";
+    document.getElementById("edit-task-due-date").value = task.dueDate || "";
+    document.getElementById("edit-task-priority").value = task.priority || "medium";
+    document.getElementById("edit-task-category").value = task.category || "other";
+    document.getElementById("edit-task-recurring").value = task.recurring || "none";
+    document.getElementById("edit-task-reminder").checked = Boolean(task.reminder);
+
+    const modal = document.getElementById("editTaskModal");
+    modal.dataset.taskId = taskId;
+    modal.classList.add("show");
+}
+
+function closeEditTaskModal() {
+    const modal = document.getElementById("editTaskModal");
+    if (modal) {
+        modal.classList.remove("show");
+        delete modal.dataset.taskId;
+    }
+}
+
+function saveEditedTask() {
+    const modal = document.getElementById("editTaskModal");
+    const taskId = Number(modal?.dataset.taskId);
+
+    if (!taskId) return;
 
     const tasks = getTasks();
+    const task = tasks.find(function (item) {
+        return item.id === taskId;
+    });
 
-    const task =
-        tasks.find(function (item) {
+    if (!task) return;
 
-            return item.id === id;
+    task.description = document.getElementById("edit-task-description").value.trim();
+    task.dueDate = document.getElementById("edit-task-due-date").value;
+    task.priority = document.getElementById("edit-task-priority").value;
+    task.category = document.getElementById("edit-task-category").value;
+    task.recurring = document.getElementById("edit-task-recurring").value;
+    task.reminder = document.getElementById("edit-task-reminder").checked;
 
-        });
-
-
-    if (!task) {
+    if (task.description === "") {
+        showToast("Task description cannot be empty.", "error");
         return;
     }
-
-
-    const newDescription =
-        prompt(
-            "Enter new task description:",
-            task.description
-        );
-
-
-    if (
-        newDescription === null ||
-        newDescription.trim() === ""
-    ) {
-
-        return;
-
-    }
-
-
-    task.description =
-        newDescription.trim();
-
 
     saveTasks(tasks);
     displayTasks();
-
+    closeEditTaskModal();
+    showToast("Task updated successfully.");
 }
 
+function editTask(id) {
+    openEditTaskModal(id);
+}
 
 // ===============TASK FILTERS================//
 
@@ -1051,21 +1010,57 @@ function setupHeaderButtons() {
 
             alert("You have no new notifications.");
 
-        });
-
-    }
-
-
-    if (profile) {
-
-        profile.addEventListener("click", function () {
-
-            window.location.href =
-                "userProfile.html";
+            showToast("You have no new notifications.");
 
         });
 
     }
+
+}
+// ===============MOBILE MENU================//
+
+function setupMobileMenu() {
+    const menuButton = document.querySelector(".mobile-menu-btn");
+    const sidebar = document.querySelector(".sidebar");
+
+    if (!menuButton || !sidebar) return;
+
+    menuButton.addEventListener("click", function () {
+        sidebar.classList.toggle("open");
+    });
+}
+
+// ===============EDIT MODAL EVENTS================//
+
+function setupEditModalEvents() {
+    const modal = document.getElementById("editTaskModal");
+
+    if (!modal) return;
+
+    const closeButton = document.querySelector(".close-edit-modal");
+    const cancelButton = document.querySelector(".cancel-edit-button");
+    const saveButton = document.querySelector(".save-edit-button");
+
+    if (closeButton) {
+        closeButton.addEventListener("click", closeEditTaskModal);
+    }
+
+
+
+    if (cancelButton) {
+        cancelButton.addEventListener("click", closeEditTaskModal);
+    }
+
+    if (saveButton) {
+        saveButton.addEventListener("click", saveEditedTask);
+    }
+
+
+    modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            closeEditTaskModal();
+        }
+    });
 
 }
 
@@ -1096,8 +1091,7 @@ function setupLogout() {
         localStorage.removeItem("loggedIn");
         localStorage.removeItem("username");
 
-        window.location.href =
-            "logIn.html";
+        window.location.href = "login.html";
 
     });
 
