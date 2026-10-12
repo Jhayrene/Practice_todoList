@@ -100,37 +100,19 @@
 
             <!-- ===== HEADER ===== -->
             <header class="header">
-
-
-                <div class="welcome">
-
-
-                    <h1 id="welcome-message">Welcome back! 👋</h1>
-                    <p id="current-date"></p>
-
-
+                <div class="header-left">
+                    <button class="mobile-menu-btn" aria-label="Open navigation menu">☰</button>
+                    <div class="welcome">
+                        <h1 id="welcome-message">Welcome back! 👋</h1>
+                        <p id="current-date"></p>
+                    </div>
                 </div>
-
 
                 <div class="header-actions">
-
-
-                    <!-- Search -->
                     <input type="search" placeholder="🔍  Search tasks...">
-
-
-                   <!-- Notification -->
                     <button class="notification" aria-label="View notifications">🔔</button>
-
-                    <!-- User Profile -->
                     <button class="profile" aria-label="Open user profile">JB</button>
-
-
                 </div>
-
-
-
-
             </header>
 
 
@@ -309,70 +291,7 @@
 
 
 
-                    <!-- ===== TASK 1 ===== -->
-                    <article class="task">
 
-
-                        <input type="checkbox" class="task-checkbox">
-
-
-                        <div class="task-info">
-
-
-                            <strong>Finish IT Assignment</strong>
-                            <p class="due-date">Sep 14, 2026</p>
-
-
-                        </div>
-
-
-                        <span class="category-badge study">STUDY</span>
-                        <span class="priority-badge high">HIGH</span>
-
-
-                      <div class="task-actions">
-
-                        <button aria-label="Edit task">✎</button> <!-- user can modify the details to a task that was already created-->
-                        <button aria-label="Delete task">🗑</button>  <!-- user can delete the task -->
-                    
-                    </div>
-
-                    </article>
-
-
-
-
-                    <!-- ===== TASK 2 ===== -->
-                    <article class="task">
-
-
-                        <input type="checkbox" class="task-checkbox">
-
-
-                        <div class="task-info">
-
-
-                            <strong>Study for Exam</strong>
-                            <p class="due-date">Sep 15, 2026</p>
-
-
-                        </div>
-
-
-                        <span class="category-badge study">STUDY</span>
-                        <span class="priority-badge high">HIGH</span>
-
-
-                      <div class="task-actions">
-
-                        <button aria-label="Edit task">✎</button>
-                        <button aria-label="Delete task">🗑</button>
-                    
-                    </div>
-
-
-                    </article>
-               
                 </section>
 
 
@@ -385,22 +304,73 @@
     </div>
 
     <!-- Custom Toast Notification -->
-<div id="toast" class="toast">
-  <p id="toast-message"></p>
-</div>
-
-<!-- Custom Confirmation Modal -->
-<div id="confirmation-modal" class="modal">
-  <div class="modal-content">
-    <h3 id="confirm-title"></h3>
-    <p id="confirm-message"></p>
-    <div class="modal-buttons">
-
-      <button id="confirm-yes" class="confirm-button">Confirm</button>
-      <button id="confirm-no" class="cancel-button">Cancel</button>
+    <div id="toast" class="toast">
+      <p id="toast-message"></p>
     </div>
-  </div>
-</div>
+
+    <!-- Edit Task Modal -->
+    <div id="editTaskModal" class="edit-modal">
+        <div class="edit-modal-content">
+            <div class="modal-header">
+                <h2>Edit Task</h2>
+                <button type="button" class="close-edit-modal" aria-label="Close edit task form">×</button>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-task-description">Task Description</label>
+                <input type="text" id="edit-task-description" name="editTaskDescription">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="edit-task-due-date">Due Date</label>
+                    <input type="date" id="edit-task-due-date" name="editTaskDueDate">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-task-priority">Priority</label>
+                    <select id="edit-task-priority" name="editTaskPriority">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="edit-task-category">Category</label>
+                    <select id="edit-task-category" name="editTaskCategory">
+                        <option value="other">Other</option>
+                        <option value="work">Work</option>
+                        <option value="study">Study</option>
+                        <option value="personal">Personal</option>
+                        <option value="shopping">Shopping</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-task-recurring">Recurring</label>
+                    <select id="edit-task-recurring" name="editTaskRecurring">
+                        <option value="none">None</option>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="reminder">
+                <input type="checkbox" id="edit-task-reminder" name="editTaskReminder">
+                <label for="edit-task-reminder">Set reminder for this task</label>
+            </div>
+
+            <div class="modal-buttons">
+                <button type="button" class="cancel-edit-button">Cancel</button>
+                <button type="button" class="save-edit-button">Save Changes</button>
+            </div>
+        </div>
+    </div>
 
 
     <script src="function.js"></script>
