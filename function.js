@@ -19,28 +19,13 @@ function togglePassword() {
 // ===============PAGE SETUP================//
 
 document.addEventListener("DOMContentLoaded", function () {
+
     setupLogin();
     setupAddTask();
     setupMainPage();
-    setupHeaderButtons();
     setupLogout();
+
 });
-
-function showToast(message, type = "success") {
-    const toast = document.getElementById("toast");
-    const toastMessage = document.getElementById("toast-message");
-
-    if (!toast || !toastMessage) return;
-
-    toastMessage.textContent = message;
-    toast.style.background = type === "error" ? "#d93025" : "#2d9c5d";
-    toast.classList.add("show");
-
-    clearTimeout(showToast.timeoutId);
-    showToast.timeoutId = setTimeout(function () {
-        toast.classList.remove("show");
-    }, 2500);
-}
 
 
 // ===============LOGIN================//
@@ -64,8 +49,9 @@ function setupLogin() {
 
         if (username === "" || password === "") {
 
-            showToast("Please enter your username and password.", "error");
-        return;
+            alert("Please enter your username and password.");
+
+            return;
         }
 
         if (
@@ -243,12 +229,14 @@ function setupMainPage() {
 
     }
 
+
     createDefaultTasks();
     displayTasks();
     setupMainButtons();
     setupFilters();
     setupCategories();
     setupSearch();
+    setupHeaderButtons();
     setupOverdue();
 
 }
@@ -1052,21 +1040,21 @@ function updateDate() {
 // ===============PROFILE BUTTON================//
 
 function setupHeaderButtons() {
+
     const notification = document.querySelector(".notification");
     const profile = document.querySelector(".profile");
 
+
     if (notification) {
+
         notification.addEventListener("click", function () {
+
             alert("You have no new notifications.");
+
         });
+
     }
 
-    if (profile) {
-        profile.addEventListener("click", function () {
-            window.location.href = "userProfile.html";
-        });
-    }
-}
 
     if (profile) {
 
@@ -1079,7 +1067,7 @@ function setupHeaderButtons() {
 
     }
 
-
+}
 
 
 // ===============LOG OUT================//
